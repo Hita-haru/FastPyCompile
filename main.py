@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 import shlex
+import sys
 
 client = genai.Client()
 
@@ -36,8 +37,13 @@ C++をコンパイルする環境はLinuxのClang++、C++17です。
 {code}
 ```"""
 
+    if (sys.argv[0] == "-p"):
+        model1 = "gemini-2.5-pro"
+        print("\"-p\"オプションによりGemini 2.5 PROが選択されました")
+    else:
+        model1 = "gemini-2.5-flash"
     responce = client.models.generate_content(
-        model = "gemini-2.5-flash",
+        model = model1,
         contents=prompt,
         config={
             "response_mime_type": "application/json"
